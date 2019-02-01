@@ -1,8 +1,9 @@
+import time
+import random
 from gpiozero import LightSensor
 from time import sleep
 import pigpio
-import time
-import random
+
 
 
 pi = pigpio.pi()
@@ -115,12 +116,12 @@ for i in range(0,250):
 
 blink()
 blink()
-blink()
+
 
 circuit_len = 60
 sensitivity = 0.1
 
-timeout = time.time() + circuit_len*1   # 1 minutes from now
+timeout = time.time() + circuit_len*1   # 1(circuit_len)  minute(s) from now
 wall_count = 0
 
 
@@ -134,13 +135,13 @@ while time.time() > timeout:
 
 	if wall_hit(random_wall, sensitivity):
 
+		wall_count += 1
+		light_off(random_wall)
+		
 		time_elapsed = time.time() - timeout
 		time_left = circuit_len - time_elapsed
 		print("TIME LEFT: "+str(time_left))
-
-		wall_count += 1
-		light_off(random_wall)
-
+		
 
 light_all()
 print("WALLS HIT: " + wall_count)
